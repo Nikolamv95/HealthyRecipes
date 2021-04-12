@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\HealthyRecipes.Data.Common\HealthyRecipes.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\HealthyRecipes.Data.Models\HealthyRecipes.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\HealthyRecipes.Web.ViewModels\HealthyRecipes.Web.ViewModels.csproj" />
     <ProjectReference Include="..\HealthyRecipes.Services.Mapping\HealthyRecipes.Services.Mapping.csproj" />
   </ItemGroup>
 

@@ -24,7 +24,6 @@
         public int PortionCount { get; set; }
 
         // TODO: OriginalUrl
-
         public string AddedByUserId { get; set; }
 
         public virtual ApplicationUser AddedByUser { get; set; }

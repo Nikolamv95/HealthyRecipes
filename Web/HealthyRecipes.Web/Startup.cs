@@ -8,6 +8,7 @@
     using HealthyRecipes.Data.Models;
     using HealthyRecipes.Data.Repositories;
     using HealthyRecipes.Data.Seeding;
+    using HealthyRecipes.Services.Data;
     using HealthyRecipes.Services.Mapping;
     using HealthyRecipes.Services.Messaging;
     using HealthyRecipes.Web.ViewModels;
@@ -63,6 +64,9 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IGetCountsService, GetCountsService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IRecipesService, RecipesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

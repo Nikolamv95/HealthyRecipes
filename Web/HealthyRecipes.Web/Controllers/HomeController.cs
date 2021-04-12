@@ -1,35 +1,40 @@
-﻿
-
-namespace HealthyRecipes.Web.Controllers
+﻿namespace HealthyRecipes.Web.Controllers
 {
     using System.Diagnostics;
-    using System.Linq;
 
-    using HealthyRecipes.Data;
+    using HealthyRecipes.Services.Data;
     using HealthyRecipes.Web.ViewModels;
     using HealthyRecipes.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
-        private readonly ApplicationDbContext db;
+        private readonly IGetCountsService countsService;
 
-        public HomeController(ApplicationDbContext db)
+        // private readonly IMapper mapper -> Implement IMapper mapper in the constructor
+
+        // 1. Work ApplicationDBContext
+        // 2. Work IRepository
+        // 3. Work with Services -> Best way to work
+        public HomeController(IGetCountsService countsService)
         {
-            this.db = db;
+            this.countsService = countsService;
         }
 
         public IActionResult Index()
         {
-
+            // Create viewModel with DTOs
+            var countsDto = this.countsService.GetCounts();
             var viewModel = new IndexViewModel()
             {
-                CategoriesCount = this.db.Categories.Count(),
-                ImagesCount = this.db.Images.Count(),
-                IngredientsCount = this.db.Ingredients.Count(),
-                RecipesCount = this.db.Recipes.Count(),
+                CategoriesCount = countsDto.CategoriesCount,
+                ImagesCount = countsDto.ImagesCount,
+                IngredientsCount = countsDto.IngredientsCount,
+                RecipesCount = countsDto.RecipesCount,
             };
 
+            // or with AutoMapper
+            // var viewModelAutoMap = this.mapper.Map<IndexViewModel>(countsDto);
             return this.View(viewModel);
         }
 
