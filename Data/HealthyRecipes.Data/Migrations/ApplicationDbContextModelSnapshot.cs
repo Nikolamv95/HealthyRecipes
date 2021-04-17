@@ -260,6 +260,9 @@ namespace HealthyRecipes.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OriginalUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PortionCount")
                         .HasColumnType("int");
 
@@ -413,7 +416,7 @@ namespace HealthyRecipes.Data.Migrations
                         .HasForeignKey("AddedByUserId");
 
                     b.HasOne("HealthyRecipes.Data.Models.Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("Images")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -531,6 +534,8 @@ namespace HealthyRecipes.Data.Migrations
 
             modelBuilder.Entity("HealthyRecipes.Data.Models.Recipe", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618
