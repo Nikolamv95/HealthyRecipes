@@ -265,7 +265,7 @@ namespace HealthyRecipes.Data.Migrations
                     b.Property<string>("OriginalUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PortionCount")
+                    b.Property<int>("PortionsCount")
                         .HasColumnType("int");
 
                     b.Property<TimeSpan>("PreparationTime")

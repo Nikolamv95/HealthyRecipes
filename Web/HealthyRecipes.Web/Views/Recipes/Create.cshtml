@@ -36,8 +36,9 @@
         <input asp-for="PortionCount" class="form-control" />
         <span asp-validation-for="PortionCount" class="text-danger"></span>
     </div>
-    <!--CategoryId is will receive the id/text from categoryItems. CategoryItems keeps the same values as categoryId.
-    asp-item is the presentational part while asp-for is the part which will receive the data from asp-items.-->
+    <!--CategoryId will receive the id/text from categoryItems. CategoryItems keeps the same values as categoryId.
+    asp-item is the presentational part while asp-for is the part which will receive the data from asp-items.
+    This is used in the drop down menu Category-->
     <div class="form-group">
         <label asp-for="CategoryId"></label>
         <select asp-for="CategoryId" class="form-control" asp-items="categoryItems"></select>
@@ -52,6 +53,7 @@
     <br />
 </form>
 
+<!--We are using this JS to add multiple ingredients in to one recipe-->
 @section Scripts {
     <script>
         var ingredientIndex = 0;

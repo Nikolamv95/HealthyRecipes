@@ -1,4 +1,7 @@
-﻿namespace HealthyRecipes.Services.Data
+﻿using System.Collections.Generic;
+using HealthyRecipes.Services.Mapping;
+
+namespace HealthyRecipes.Services.Data
 {
     using System;
     using System.Linq;
@@ -19,7 +22,7 @@
             this.ingredientsRepository = ingredientsRepository;
         }
 
-        public async Task CreateAsync(CreateRecipeInputModel input)
+        public async Task CreateAsync(CreateRecipeInputModel input, string userId)
         {
             var recipe = new Recipe()
             {
@@ -27,8 +30,9 @@
                 Instructions = input.Instructions,
                 CookingTime = TimeSpan.FromMinutes(input.CookingTime),
                 PreparationTime = TimeSpan.FromMinutes(input.PreparationTime),
-                PortionCount = input.PortionCount,
+                PortionsCount = input.PortionCount,
                 CategoryId = input.CategoryId,
+                AddedByUserId = userId,
             };
 
             foreach (var inputIngredient in input.Ingredients)
@@ -51,6 +55,35 @@
 
             await this.recipesRepository.AddAsync(recipe);
             await this.recipesRepository.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Get all recipes from the database ordered by descending.
+        /// This method can be used by different ViewModels which
+        /// will be related to Recipe model form the database.
+        /// </summary>
+        /// <param name="page">Current page from the pagination.</param>
+        /// <param name="itemsPerPage">12 is default value.</param>
+        /// <returns>IEnumerable<T></T></returns>
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12)
+        {
+            // public IEnumerable<ViewModel> GetAll<ViewModel>
+            // This query is created with AutoMapper. Check RecipeInListViewModel method CreateMappings
+            // Get all recipes and map them .TO<ViewModel>
+            var recipes = this.recipesRepository
+                .AllAsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .To<T>()
+                .ToList();
+
+            return recipes;
+        }
+
+        public int GetCount()
+        {
+            return this.recipesRepository.All().Count();
         }
     }
 }

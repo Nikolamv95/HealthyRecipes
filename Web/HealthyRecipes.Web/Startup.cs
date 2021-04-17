@@ -1,6 +1,4 @@
-﻿using HealthyRecipes.Services;
-
-namespace HealthyRecipes.Web
+﻿namespace HealthyRecipes.Web
 {
     using System.Reflection;
 
@@ -10,6 +8,7 @@ namespace HealthyRecipes.Web
     using HealthyRecipes.Data.Models;
     using HealthyRecipes.Data.Repositories;
     using HealthyRecipes.Data.Seeding;
+    using HealthyRecipes.Services;
     using HealthyRecipes.Services.Data;
     using HealthyRecipes.Services.Mapping;
     using HealthyRecipes.Services.Messaging;
@@ -81,7 +80,8 @@ namespace HealthyRecipes.Web
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.Migrate();
+
+               // dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 

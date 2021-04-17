@@ -18,7 +18,7 @@
         /// <summary>
         /// Get categories as key value pair.
         /// </summary>
-        /// <returns>IEnumerable of key value pairs where Key is the Id and Value is the name</returns>
+        /// <returns>IEnumerable of key value pairs where Key is the Id and Value is the name.</returns>
         public IEnumerable<KeyValuePair<string, string>> GetAllKeyValuePairs()
         {
             // Firstly we extract all the categories data with Id and name with ToList
@@ -27,6 +27,7 @@
             return this.categoriesRepository
                 .AllAsNoTrackingWithDeleted()
                 .Select(x => new { x.Id, x.Name })
+                .OrderBy(x => x.Name)
                 .ToList()
                 .Select(x => new KeyValuePair<string, string>(x.Id.ToString(), x.Name));
         }
