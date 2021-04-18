@@ -1,16 +1,14 @@
-﻿using System;
-using System.Security.Claims;
-using HealthyRecipes.Data.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-
-namespace HealthyRecipes.Web.Controllers
+﻿namespace HealthyRecipes.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
+    using HealthyRecipes.Data.Models;
     using HealthyRecipes.Services.Data;
     using HealthyRecipes.Web.ViewModels.Recipes;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class RecipesController : Controller
@@ -94,6 +92,12 @@ namespace HealthyRecipes.Web.Controllers
             }
 
             return this.View(viewModel);
+        }
+
+        public IActionResult ById(int id)
+        {
+            SingleRecipeViewModel recipe = this.recipesService.GetById<SingleRecipeViewModel>(id);
+            return this.View(recipe);
         }
     }
 }

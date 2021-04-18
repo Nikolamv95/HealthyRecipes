@@ -16,5 +16,7 @@ namespace HealthyRecipes.Services.Data
         IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12);
 
         int GetCount();
+
+        T GetById<T>(int id);
     }
 }
