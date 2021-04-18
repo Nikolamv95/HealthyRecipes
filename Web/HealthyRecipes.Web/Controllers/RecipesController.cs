@@ -55,7 +55,7 @@ namespace HealthyRecipes.Web.Controllers
 
             try
             {
-                await this.recipesService.CreateAsync(input, user.Id, $"{this.environment.ContentRootPath}/images");
+                await this.recipesService.CreateAsync(input, user.Id, $"{this.environment.WebRootPath}/images");
             }
             catch (Exception ex)
             {
