@@ -1,6 +1,8 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using HealthyRecipes.Data.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 
 namespace HealthyRecipes.Web.Controllers
@@ -16,12 +18,14 @@ namespace HealthyRecipes.Web.Controllers
         private readonly ICategoriesService categoriesService;
         private readonly IRecipesService recipesService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IWebHostEnvironment environment;
 
-        public RecipesController(ICategoriesService categoriesService, IRecipesService recipesService, UserManager<ApplicationUser> userManager)
+        public RecipesController(ICategoriesService categoriesService, IRecipesService recipesService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
         {
             this.categoriesService = categoriesService;
             this.recipesService = recipesService;
             this.userManager = userManager;
+            this.environment = environment;
         }
 
         [HttpGet]
@@ -48,7 +52,17 @@ namespace HealthyRecipes.Web.Controllers
             // var userid = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             // or
             var user = await this.userManager.GetUserAsync(this.User);
-            await this.recipesService.CreateAsync(input, user.Id);
+
+            try
+            {
+                await this.recipesService.CreateAsync(input, user.Id, $"{this.environment.ContentRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                input.CategoriesItems = this.categoriesService.GetAllKeyValuePairs();
+                return this.View(input);
+            }
 
             // TODO: Redirect to recipe info page
             return this.Redirect("/");

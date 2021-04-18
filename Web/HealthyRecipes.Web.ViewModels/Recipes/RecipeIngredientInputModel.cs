@@ -9,7 +9,7 @@
         public string Name { get; set; }
 
         [Required]
-        [MinLength(3)]
+        [MinLength(1)]
         public string Quantity { get; set; }
     }
 }

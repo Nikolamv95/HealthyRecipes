@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using HealthyRecipes.Services.Mapping;
 
 namespace HealthyRecipes.Services.Data
@@ -13,6 +14,8 @@ namespace HealthyRecipes.Services.Data
 
     public class RecipesService : IRecipesService
     {
+        // Always do this validation when work with images/files
+        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<Recipe> recipesRepository;
         private readonly IDeletableEntityRepository<Ingredient> ingredientsRepository;
 
@@ -22,7 +25,7 @@ namespace HealthyRecipes.Services.Data
             this.ingredientsRepository = ingredientsRepository;
         }
 
-        public async Task CreateAsync(CreateRecipeInputModel input, string userId)
+        public async Task CreateAsync(CreateRecipeInputModel input, string userId, string imagePath)
         {
             var recipe = new Recipe()
             {
@@ -51,6 +54,33 @@ namespace HealthyRecipes.Services.Data
                     Ingredient = ingredient,
                     Quantity = inputIngredient.Quantity,
                 });
+            }
+
+            // /wwwroot/images/recipes/jhdsi-343g3h453-=g34g.jpg
+            Directory.CreateDirectory($"{imagePath}/recipes/");
+
+            foreach (var image in input.Images)
+            {
+
+                var extension = Path.GetExtension(image.FileName).TrimStart('.');
+                if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
+                {
+                    throw new Exception($"Invalid image extension {extension}");
+                }
+
+                var dbImage = new Image
+                {
+                    AddedByUserId = userId,
+                    Extension = extension,
+                };
+
+                recipe.Images.Add(dbImage);
+
+                var physicalPath = $"{imagePath}/recipes/{dbImage.Id}.{extension}";
+
+                // Save the file in to the directory
+                await using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+                await image.CopyToAsync(fileStream);
             }
 
             await this.recipesRepository.AddAsync(recipe);

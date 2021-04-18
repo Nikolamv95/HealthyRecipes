@@ -8,7 +8,7 @@ namespace HealthyRecipes.Services.Data
 
     public interface IRecipesService
     {
-        Task CreateAsync(CreateRecipeInputModel input, string userId);
+        Task CreateAsync(CreateRecipeInputModel input, string userId, string imagePath);
 
         // I want the result of my IEnumerable<T> to be from type T in GetAll<T>.
         // The T type in GetAll<T> will be provided by the place in which the method is called.
