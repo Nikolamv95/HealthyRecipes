@@ -11,6 +11,8 @@ namespace HealthyRecipes.Web.ViewModels.Recipes
 
     public class SingleRecipeViewModel : IMapFrom<Recipe>, IHaveCustomMappings
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string CategoryName { get; set; }
@@ -37,12 +39,16 @@ namespace HealthyRecipes.Web.ViewModels.Recipes
 
         public int PortionsCount { get; set; }
 
+        public double VotesAverageValue { get; set; }
+
         public IEnumerable<IngredientsViewModel> Ingredients { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
+            // From which database model, what viewModel to create
             configuration
-                .CreateMap<Recipe, SingleRecipeViewModel>() // From which database model, what viewModel to create
+                .CreateMap<Recipe, SingleRecipeViewModel>()
+                .ForMember(x => x.VotesAverageValue, opt => opt.MapFrom(x => x.Votes.Average(x => x.Value)))
                 .ForMember(x => x.ImageUrl, opt =>
                     opt.MapFrom(x =>
                         x.Images.FirstOrDefault().RemoteImageUrl != null ?

@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using HealthyRecipes.Services.Mapping;
-
-namespace HealthyRecipes.Services.Data
+﻿namespace HealthyRecipes.Services.Data
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
     using HealthyRecipes.Data.Common.Repositories;
     using HealthyRecipes.Data.Models;
+    using HealthyRecipes.Services.Mapping;
     using HealthyRecipes.Web.ViewModels.Recipes;
 
     public class RecipesService : IRecipesService
@@ -94,7 +93,7 @@ namespace HealthyRecipes.Services.Data
         /// </summary>
         /// <param name="page">Current page from the pagination.</param>
         /// <param name="itemsPerPage">12 is default value.</param>
-        /// <returns>IEnumerable<T></T></returns>
+        /// <returns>IEnumerable.<T></T></returns>
         public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 12)
         {
             // public IEnumerable<ViewModel> GetAll<ViewModel>
@@ -120,7 +119,7 @@ namespace HealthyRecipes.Services.Data
         {
             var recipe = this.recipesRepository
                 .AllAsNoTracking()
-                .Where(x => x.Id == id)
+                .Where(x=> x.Id == id)
                 .To<T>()
                 .FirstOrDefault();
 
