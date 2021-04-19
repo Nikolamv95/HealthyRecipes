@@ -56,6 +56,9 @@
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            // Register AntiForgeryToken -> Work with AJAX
+            services.AddAntiforgery(opt => opt.HeaderName = "X-CSRF-TOKEN");
+
             services.AddSingleton(this.configuration);
 
             // Data repositories
@@ -68,6 +71,7 @@
             services.AddTransient<IGetCountsService, GetCountsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IRecipesService, RecipesService>();
+            services.AddTransient<IVotesService, VotesService>();
             services.AddTransient<IGotvachBgScraperService, GotvachBgScraperService>();
         }
 
@@ -82,7 +86,7 @@
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-               // dbContext.Database.Migrate();
+                // dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 

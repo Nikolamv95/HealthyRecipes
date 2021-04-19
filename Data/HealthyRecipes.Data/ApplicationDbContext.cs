@@ -34,7 +34,7 @@
 
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
 
-        public DbSet<Vote> Vote { get; set; }
+        public DbSet<Vote> Votes { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

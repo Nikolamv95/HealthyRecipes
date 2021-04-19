@@ -48,7 +48,8 @@ namespace HealthyRecipes.Web.ViewModels.Recipes
             // From which database model, what viewModel to create
             configuration
                 .CreateMap<Recipe, SingleRecipeViewModel>()
-                .ForMember(x => x.VotesAverageValue, opt => opt.MapFrom(x => x.Votes.Average(x => x.Value)))
+                .ForMember(x => x.VotesAverageValue, opt =>
+                    opt.MapFrom(x => x.Votes.Count() == 0 ? 0 : x.Votes.Average(v => v.Value)))
                 .ForMember(x => x.ImageUrl, opt =>
                     opt.MapFrom(x =>
                         x.Images.FirstOrDefault().RemoteImageUrl != null ?
