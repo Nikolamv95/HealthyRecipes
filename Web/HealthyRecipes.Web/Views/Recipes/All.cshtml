@@ -4,6 +4,11 @@
     this.ViewData["Name"] = "All Recipes";
 }
 
+@if (this.TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-success">@this.TempData["Message"]</div>
+}
+
 <h1>@this.ViewData["Name"]</h1>
 
 <hr />

@@ -62,8 +62,10 @@
                 return this.View(input);
             }
 
+            this.TempData["Message"] = "Recipe added successfully.";
+
             // TODO: Redirect to recipe info page
-            return this.Redirect("/");
+            return this.RedirectToAction("All");
         }
 
         [HttpGet]
