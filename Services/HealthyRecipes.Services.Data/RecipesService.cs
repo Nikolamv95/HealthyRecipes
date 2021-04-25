@@ -144,5 +144,24 @@
 
             await this.recipesRepository.SaveChangesAsync();
         }
+
+        public IEnumerable<T> GetByIngredients<T>(IEnumerable<int> ingredientIds)
+        {
+            var query = this.recipesRepository.All().AsQueryable();
+
+            foreach (var ingredientId in ingredientIds)
+            {
+                query = query.Where(x => x.Ingredients.Any(i => i.IngredientId == ingredientId));
+            }
+
+            return query.To<T>().ToList();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var recipe = this.recipesRepository.All().FirstOrDefault(x => x.Id == id);
+            this.recipesRepository.Delete(recipe);
+            await this.recipesRepository.SaveChangesAsync();
+        }
     }
 }

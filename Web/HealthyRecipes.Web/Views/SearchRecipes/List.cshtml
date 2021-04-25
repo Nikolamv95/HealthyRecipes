@@ -1,0 +1,28 @@
+﻿@model HealthyRecipes.Web.ViewModels.SearchRecipes.ListViewModel
+@{
+    this.ViewData["Title"] = "Recipes found";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+
+@if (!Model.Recipes.Any())
+{
+    <p>Nothing found</p>
+}
+else
+{
+    <div class="row">
+        @foreach (var recipe in this.Model.Recipes)
+        {
+            <div class="media col-md-4">
+                <img src="@recipe.ImageUrl" class="mr-3" width="100">
+                <div class="media-body">
+                    <h5 class="mt-0"><a asp-controller="Recipes" asp-action="ById" asp-route-id="@recipe.Id">@recipe.Name</a></h5>
+                    @recipe.CategoryName
+                </div>
+            </div>
+        }
+    </div>
+}
