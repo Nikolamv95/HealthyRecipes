@@ -1,10 +1,9 @@
-﻿using HealthyRecipes.Common;
-
-namespace HealthyRecipes.Web.Controllers
+﻿namespace HealthyRecipes.Web.Controllers
 {
     using System;
     using System.Threading.Tasks;
 
+    using HealthyRecipes.Common;
     using HealthyRecipes.Data.Models;
     using HealthyRecipes.Services.Data;
     using HealthyRecipes.Web.ViewModels.Recipes;

@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-
-namespace HealthyRecipes.Web.ViewModels.Recipes
+﻿namespace HealthyRecipes.Web.ViewModels.Recipes
 {
+    using AutoMapper;
     using HealthyRecipes.Data.Models;
     using HealthyRecipes.Services.Mapping;
 

@@ -60,7 +60,6 @@
 
             foreach (var image in input.Images)
             {
-
                 var extension = Path.GetExtension(image.FileName).TrimStart('.');
                 if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
                 {
@@ -119,7 +118,7 @@
         {
             var recipe = this.recipesRepository
                 .AllAsNoTracking()
-                .Where(x=> x.Id == id)
+                .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefault();
 
@@ -144,7 +143,6 @@
             recipe.CategoryId = input.CategoryId;
 
             await this.recipesRepository.SaveChangesAsync();
-
         }
     }
 }

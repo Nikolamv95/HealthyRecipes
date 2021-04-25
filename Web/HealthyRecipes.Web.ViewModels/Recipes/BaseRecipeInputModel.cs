@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace HealthyRecipes.Web.ViewModels.Recipes
+﻿namespace HealthyRecipes.Web.ViewModels.Recipes
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public abstract class BaseRecipeInputModel

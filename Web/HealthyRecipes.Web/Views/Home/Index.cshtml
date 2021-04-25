@@ -10,7 +10,7 @@
         <div class="row">
             @foreach (var recipe in @Model.RandomRecipes)
             {
-                <div class="card col-md-6">
+                <div class="card col-md-6" style="padding: 6px;">
                     <img class="card-img-top" src="@recipe.ImageUrl" alt="Recipe image">
                     <div class="card-body">
                         <h5 class="card-title">@recipe.Name</h5>
