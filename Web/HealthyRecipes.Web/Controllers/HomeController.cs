@@ -10,15 +10,17 @@
     public class HomeController : BaseController
     {
         private readonly IGetCountsService countsService;
+        private readonly IRecipesService recipesService;
 
         // private readonly IMapper mapper -> Implement IMapper mapper in the constructor
 
         // 1. Work ApplicationDBContext
         // 2. Work IRepository
         // 3. Work with Services -> Best way to work
-        public HomeController(IGetCountsService countsService)
+        public HomeController(IGetCountsService countsService, IRecipesService recipesService)
         {
             this.countsService = countsService;
+            this.recipesService = recipesService;
         }
 
         public IActionResult Index()
@@ -31,6 +33,7 @@
                 ImagesCount = countsDto.ImagesCount,
                 IngredientsCount = countsDto.IngredientsCount,
                 RecipesCount = countsDto.RecipesCount,
+                RandomRecipes = this.recipesService.GetRandom<IndexPageRecipeViewModel>(10),
             };
 
             // or with AutoMapper

@@ -4,9 +4,25 @@
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <div class="col-md-4 offset-md-4">
+<div class="text-center row">
+    <h1 class="display-4 offset-3">Welcome to @GlobalConstants.SystemName!</h1>
+    <div class="col-md-8">
+        <div class="row">
+            @foreach (var recipe in @Model.RandomRecipes)
+            {
+                <div class="card col-md-6">
+                    <img class="card-img-top" src="@recipe.ImageUrl" alt="Recipe image">
+                    <div class="card-body">
+                        <h5 class="card-title">@recipe.Name</h5>
+                        <p class="card-text">@recipe.CategoryName</p>
+                        <!--Lead the user to controller Recipes with action ById and open the recipe.id-->
+                        <a asp-controller="Recipes" asp-action="ById" asp-route-id="@recipe.Id" class="btn btn-primary">Open recipe</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-4">
         <p>We have:</p>
         <ul class="list-group">
             <li class="list-group-item bg-info">Recipes: @Model.RecipesCount</li>
@@ -15,5 +31,5 @@
             <li class="list-group-item bg-light">Ingredients: @Model.IngredientsCount</li>
         </ul>
     </div>
-    
+
 </div>

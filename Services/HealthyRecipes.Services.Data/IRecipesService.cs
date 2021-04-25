@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace HealthyRecipes.Services.Data
+﻿namespace HealthyRecipes.Services.Data
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using HealthyRecipes.Web.ViewModels.Recipes;
@@ -18,5 +17,7 @@ namespace HealthyRecipes.Services.Data
         int GetCount();
 
         T GetById<T>(int id);
+
+        IEnumerable<T> GetRandom<T>(int count);
     }
 }

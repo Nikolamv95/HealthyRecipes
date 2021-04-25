@@ -125,5 +125,11 @@
 
             return recipe;
         }
+
+        public IEnumerable<T> GetRandom<T>(int count)
+        {
+            // Guid.NewGuid() is used in EF if we want to take random data
+            return this.recipesRepository.All().OrderBy(x => Guid.NewGuid()).Take(count).To<T>().ToList();
+        }
     }
 }
