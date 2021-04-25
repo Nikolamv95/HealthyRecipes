@@ -43,6 +43,11 @@
                     <li class="single-meta">
                         <form id="deleteForm" method="post" type="submit" asp-controller="Recipes" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger" data-toggle="modal" data-target="#modelDelete">Delete</form>
                     </li>
+                    <li class="single-meta">
+                        <form method="post" asp-action="SendToEmail" asp-route-id="@Model.Id">
+                            <button class="btn btn-outline-warning">Send to my email</button>
+                        </form>
+                    </li>
                 }
             </ul>
             <!-- Modal -->

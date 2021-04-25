@@ -1,11 +1,13 @@
 ﻿namespace HealthyRecipes.Web.Controllers
 {
     using System;
+    using System.Text;
     using System.Threading.Tasks;
 
     using HealthyRecipes.Common;
     using HealthyRecipes.Data.Models;
     using HealthyRecipes.Services.Data;
+    using HealthyRecipes.Services.Messaging;
     using HealthyRecipes.Web.ViewModels.Recipes;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
@@ -18,13 +20,15 @@
         private readonly IRecipesService recipesService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
+        private readonly IEmailSender emailSender;
 
-        public RecipesController(ICategoriesService categoriesService, IRecipesService recipesService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
+        public RecipesController(ICategoriesService categoriesService, IRecipesService recipesService, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment, IEmailSender emailSender)
         {
             this.categoriesService = categoriesService;
             this.recipesService = recipesService;
             this.userManager = userManager;
             this.environment = environment;
+            this.emailSender = emailSender;
         }
 
         [HttpGet]
@@ -132,6 +136,18 @@
         {
             await this.recipesService.DeleteAsync(id);
             return this.RedirectToAction(nameof(this.All));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendToEmail(int id)
+        {
+            var recipe = this.recipesService.GetById<RecipeInListVIewModel>(id);
+            var html = new StringBuilder();
+            html.AppendLine($"<h1>{recipe.Name}</h1>");
+            html.AppendLine($"<h3>{recipe.CategoryName}</h3>");
+            html.AppendLine($"<img src=\"{recipe.ImageUrl}\" />");
+            await this.emailSender.SendEmailAsync("email@domain.com", "HealtyRecipes", "email@gmail.com", recipe.Name, html.ToString());
+            return this.RedirectToAction(nameof(this.ById), new { id });
         }
     }
 }
