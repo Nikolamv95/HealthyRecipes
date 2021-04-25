@@ -363,3 +363,11 @@ MigrationBackup/
 FodyWeavers.xsd
 Web/HealthyRecipes.Web/wwwroot/images/recipes/32363942-81ae-48c0-9602-feb861684ab2.png
 Web/HealthyRecipes.Web/wwwroot/images/recipes/bd192df4-4323-42cf-aad4-021604e11143.png
+Data/HealthyRecipes.Data/Migrations/20210410132550_InitialCreate.cs
+Data/HealthyRecipes.Data/Migrations/20210410132550_InitialCreate.cs
+Data/HealthyRecipes.Data/Migrations/20210410132550_InitialCreate.Designer.cs
+Data/HealthyRecipes.Data/Migrations/20210414140711_OrinalUrl.cs
+Data/HealthyRecipes.Data/Migrations/20210414140711_OrinalUrl.Designer.cs
+Data/HealthyRecipes.Data/Migrations/20210418154523_AddVoteForRecipes.cs
+Data/HealthyRecipes.Data/Migrations/20210418154523_AddVoteForRecipes.Designer.cs
+Data/HealthyRecipes.Data/Migrations/ApplicationDbContextModelSnapshot.cs
