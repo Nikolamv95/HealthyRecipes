@@ -1,4 +1,6 @@
-﻿namespace HealthyRecipes.Web.Controllers
+﻿using HealthyRecipes.Common;
+
+namespace HealthyRecipes.Web.Controllers
 {
     using System;
     using System.Threading.Tasks;
@@ -100,6 +102,29 @@
         {
             SingleRecipeViewModel recipe = this.recipesService.GetById<SingleRecipeViewModel>(id);
             return this.View(recipe);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public IActionResult Edit(int id)
+        {
+            var inputModel = this.recipesService.GetById<EditRecipeInputModel>(id);
+            inputModel.CategoriesItems = this.categoriesService.GetAllKeyValuePairs();
+            return this.View(inputModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Edit(int id, EditRecipeInputModel recipe)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                recipe.CategoriesItems = this.categoriesService.GetAllKeyValuePairs();
+                return this.View(recipe);
+            }
+
+            await this.recipesService.UpdateAsync(id, recipe);
+            return this.RedirectToAction(nameof(this.ById), new { id });
         }
     }
 }

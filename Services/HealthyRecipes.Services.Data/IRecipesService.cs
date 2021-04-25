@@ -19,5 +19,7 @@
         T GetById<T>(int id);
 
         IEnumerable<T> GetRandom<T>(int count);
+
+        Task UpdateAsync(int id, EditRecipeInputModel input);
     }
 }
