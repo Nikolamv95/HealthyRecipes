@@ -45,8 +45,4 @@
     <ProjectReference Include="..\HealthyRecipes.Web.Infrastructure\HealthyRecipes.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\HealthyRecipes.Web.ViewModels\HealthyRecipes.Web.ViewModels.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Administration\Views\Dashboard\" />
-  </ItemGroup>
 </Project>
