@@ -1,4 +1,8 @@
 ﻿@using HealthyRecipes.Common
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.Extensions.Configuration
+@inject IWebHostEnvironment environment
+@inject IConfiguration configuration
 @model HealthyRecipes.Web.ViewModels.Home.IndexViewModel
 @{
     this.ViewData["Title"] = "Home Page";
