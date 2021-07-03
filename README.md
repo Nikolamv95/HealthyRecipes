@@ -1,4 +1,6 @@
-## Table of contents
+# Healthy Recipes
+
+## ✅ Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
 
